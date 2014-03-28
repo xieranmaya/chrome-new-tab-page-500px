@@ -89,7 +89,7 @@ function cache500pxImg(json){
 			// 	console.log('caching img ok:',photoUrl);
 			// });
 		},Promise.resolve());
-	},5000)
+	},60*1000)//这个时间一开始设置的比较短，后来考虑到可以设置长一点，这样可以在用户打开新标签后马上跳转时不白缓存文件，所以设置为1分钟
 	return json;
 }
 Array.prototype.have = function(item){
