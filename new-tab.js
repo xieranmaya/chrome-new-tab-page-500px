@@ -126,40 +126,41 @@ function setImgFullScreen(imgurl){
 	image.onload = function(){
 
 
-		img.src = imgurl;
-		img.oncontextmenu = function(){return false;};
+		imgel.src = imgurl;
+		imgel.oncontextmenu = function(){return false;};
 		var w = this.width,
 			h = this.height;
-		responsive(img,w,h);
+		responsive(imgel,w,h);
 		window.onresize = function(){
-			responsive(img,w,h);
-		}
+			responsive(imgel,w,h);
+		};
 
-		$(img).css('opacity',0).animate({
+		$(imgel).css('opacity',0).animate({
 			opacity:1
 		},400);
 	};
-	function responsive(img,w,h){//img标签，图片实际尺寸
-		var cw = document.body.clientWidth,
-			ch = document.body.clientHeight,
-			rate;
+}
 
-		if(w/h>cw/ch){//图片太宽
-			rate = ch/h;
-			img.style.height = ch + "px";
-			img.style.marginLeft = -(rate*w-cw)/2+"px";
+function responsive(imgel,w,h){//img标签，图片实际尺寸
+	var cw = document.body.clientWidth,
+		ch = document.body.clientHeight,
+		rate;
 
-			img.style.width = '';
-			img.style.marginTop = '';
-		}else{//图片太高
-			rate = cw/w;
-			img.style.width = cw + "px";
-			img.style.marginTop = -(rate*h-ch)/2+"px";
-			
-			img.style.height = '';
-			img.style.marginLeft = '';
-		}
+	if(w/h>cw/ch){//图片太宽
+		rate = ch/h;
+		imgel.style.height = ch + "px";
+		imgel.style.marginLeft = -(rate*w-cw)/2+"px";
 
-		//console.log(rate);
+		imgel.style.width = '';
+		imgel.style.marginTop = '';
+	}else{//图片太高
+		rate = cw/w;
+		imgel.style.width = cw + "px";
+		imgel.style.marginTop = -(rate*h-ch)/2+"px";
+		
+		imgel.style.height = '';
+		imgel.style.marginLeft = '';
 	}
+
+	//console.log(rate);
 }
