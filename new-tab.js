@@ -1,3 +1,12 @@
+Array.prototype.have = function(item){
+	for(var i = 0,len = this.length; i<len;i++){
+		if(this[i]===item){
+			return true;
+		}
+	}
+	return false;
+};
+
 function get(url){
 	return new Promise(function(resolve,reject){
 		$.get(url).done(function(data){
@@ -32,37 +41,31 @@ function get500px(token){
 	});
 }
 
-function get500pxCache(){
-	if(!localStorage.px500){
-
-		return get500px();
-
-	}else{
-
-		if(new Date().getTime() - parseInt(localStorage.lastUpdateTime)>1000*60*10){
-
-			get500px();
-
-			return Promise.resolve(localStorage.px500).then(JSON.parse);
-
-		}else{
-			return Promise.resolve(localStorage.px500).then(JSON.parse);
-		}
-	}
-}
-
-get500pxCache()
-.then(cache500pxImg)
-.then(getRandImgObj)
-.then(setPhotoInfo)
-.then(setImgFullScreen);
-
 function cacheToLocale(json){
 	localStorage.px500 = JSON.stringify(json);
 	localStorage.lastUpdateTime = new Date().getTime();
 
 	return json;
 }
+
+function get500pxFromCache(){
+	if(!localStorage.px500){
+		return get500px().then(cache500pxImg);
+	}else{
+		if(new Date().getTime() - parseInt(localStorage.lastUpdateTime)>1000*60*10){// 10 minutes from last update.
+			setTimeout(function(){
+				get500px().then(cache500pxImg);
+			},60*1000);//一个新窗口被开了一分钟后才开始从服务器下载并缓存数据，我真的是因为不想开background page才这样的。。。
+		}
+		return Promise.resolve(localStorage.px500).then(JSON.parse);
+	}
+}
+
+get500pxFromCache()
+//.then(cache500pxImg)
+.then(getRandImgObj)
+.then(setPhotoInfo)
+.then(setImgFullScreen);
 
 function setPhotoInfo(imgObj){
 	$("#title").text(imgObj.name)[0].href = 'http://500px.com/photo/' + imgObj.id;
@@ -77,29 +80,17 @@ function getRandImgObj(json){
 }
 
 function cache500pxImg(json){
-	setTimeout(function(){
-		json.photos.reduce(function(squence,photo){
-			var photoUrl = photo.image_url.replace("3.jpg","5.jpg");
-			return squence.then(function(){
-				get(photoUrl).then(function(){
-					console.log('caching img ok:',photoUrl);
-				});
+	json.photos.reduce(function(squence,photo){
+		var photoUrl = photo.image_url.replace("3.jpg","5.jpg");
+		return squence.then(function(){
+			get(photoUrl).then(function(){
+				console.log('caching img ok:',photoUrl);
 			});
-			// $.get(photoUrl).success(function(){
-			// 	console.log('caching img ok:',photoUrl);
-			// });
-		},Promise.resolve());
-	},60*1000)//这个时间一开始设置的比较短，后来考虑到可以设置长一点，这样可以在用户打开新标签后马上跳转时不白缓存文件，所以设置为1分钟
+		});
+	},Promise.resolve());
 	return json;
 }
-Array.prototype.have = function(item){
-	for(var i = 0,len = this.length; i<len;i++){
-		if(this[i]===item){
-			return true;
-		}
-	}
-	return false;
-};
+
 function setFavStatus(imgurl){
 	var favList = localStorage.favList?JSON.parse(localStorage.favList):[];
 	var added = false;
@@ -127,6 +118,7 @@ function setFavStatus(imgurl){
 		return false;
 	});
 }
+
 function setImgFullScreen(imgurl){
 	var image = new Image();
 	image.src = imgurl;
@@ -145,9 +137,7 @@ function setImgFullScreen(imgurl){
 
 		$(img).css('opacity',0).animate({
 			opacity:1
-		},400,function(){
-			//$(".photo-info").delay(500).slideToggle();
-		});
+		},400);
 	};
 	function responsive(img,w,h){//img标签，图片实际尺寸
 		var cw = document.body.clientWidth,
@@ -173,14 +163,3 @@ function setImgFullScreen(imgurl){
 		//console.log(rate);
 	}
 }
-
-
-
-
-
-// get("http://www.lofter.com/")
-// .then(function(pageHtml){
-// 	var match = pageHtml.match(/imageUrl:\'(.*?)\'/);
-// 	var imgurl = match[1];
-// 	return imgurl;
-// }).then(setImgFullScreen);
