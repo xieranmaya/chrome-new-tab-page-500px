@@ -1,16 +1,16 @@
 {
-   "author": "xieranmaya",
+   "author": "xieranmaya@gmail.com",
    "chrome_url_overrides": {
       "newtab": "new-tab.html"
    },
    "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
-   "description": "LOFTER 新标签页",
+   "description": "显示来自500px.com照片的新标签页",
    "icons": {
       "128": "icon.png"
    },
    "manifest_version": 2,
-   "name": "LOFTER 新标签页",
-   "permissions": [ "http://curator.im/","http://www.lofter.com/","<all_urls>" ],
+   "name": "500px.com新标签页",
+   "permissions": [ "http://500px.com/", "http://ppcdn.500px.org/", "<all_urls>" ],
    "update_url": "https://clients2.google.com/service/update2/crx",
    "version": "0.0.8"
 }
