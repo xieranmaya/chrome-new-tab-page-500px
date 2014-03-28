@@ -53,7 +53,7 @@ function get500pxFromCache(){
 		return get500px().then(cache500pxImg);
 	}else{
 		if(new Date().getTime() - parseInt(localStorage.lastUpdateTime)>1000*60*10){// 10 minutes from last update.
-			setTimeout(function(){
+			setInterval(function(){
 				get500px().then(cache500pxImg);
 			},60*1000);//一个新窗口被开了一分钟后才开始从服务器下载并缓存数据，我真的是因为不想开background page才这样的。。。
 		}
