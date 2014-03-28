@@ -1,0 +1,16 @@
+{
+   "author": "xieranmaya",
+   "chrome_url_overrides": {
+      "newtab": "new-tab.html"
+   },
+   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+   "description": "LOFTER 新标签页",
+   "icons": {
+      "128": "icon.png"
+   },
+   "manifest_version": 2,
+   "name": "LOFTER 新标签页",
+   "permissions": [ "http://curator.im/","http://www.lofter.com/","<all_urls>" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "0.0.8"
+}

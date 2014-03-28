@@ -1,0 +1,64 @@
+html {
+    padding: 0;
+    margin:0;
+}
+body {
+    padding:0;
+    margin:0;
+    overflow: auto;
+}
+img {
+    display: block;
+    margin: 0;
+    height: 160px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    float: left;
+}
+.fav-list {
+    overflow: hidden;
+    padding-left:2%;
+    padding-top:2%;
+}
+.col {
+    width: 23%;
+    margin-right: 2%;
+    float: left;
+}
+.col img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 8.7%;
+    display: block;
+    box-shadow: 0px 0px 20px black;
+    float: none;
+}
+.col > div {
+    position: relative;
+}
+.col > div > div {
+    position: absolute;
+    top:0;
+    background-color: black;
+    opacity: 0.5;
+    color:white;
+    width: 100%;
+}
+.no-more {
+    width:96%;
+    margin:auto;
+    text-align: center;
+    font-size: 3vw;
+    color: silver;
+    margin-bottom: 2%;
+}
+.pager span{
+    cursor: pointer;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+}
+.pager .current{
+    background-color:grey;
+    cursor: default;
+}
