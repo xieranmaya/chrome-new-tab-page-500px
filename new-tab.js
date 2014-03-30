@@ -7,6 +7,14 @@ Array.prototype.have = function(item){
 	return false;
 };
 
+Array.getNonEmpty = function(len){
+	var arr = [];
+	for(var i = 0;i<len;i++){
+		arr.push(0);
+	}
+	return arr;
+};
+
 function get(url){
 	return new Promise(function(resolve,reject){
 		$.get(url).done(function(data){
@@ -76,18 +84,28 @@ function setPhotoInfo(imgObj){
 
 function getRandImgObj(json){
 	var rand = parseInt(Math.random()*json.photos.length);
+	console.log(rand,json.photos.length);
 	return json.photos[rand];
 }
 
 function cache500pxImg(json){
-	json.photos.reduce(function(squence,photo){
-		var photoUrl = photo.image_url.replace("3.jpg","5.jpg");
+	var groupSize = 5;
+	var i = 0;
+	var tmpArr = Array.getNonEmpty(json.photos.length/groupSize);
+
+	tmpArr.reduce(function(squence){
 		return squence.then(function(){
-			get(photoUrl).then(function(){
-				console.log('caching img ok:',photoUrl);
-			});
+			var subArray = json.photos.slice(i*5,(i+1)*5);
+			i++;
+			return Promise.race(subArray.map(function(photo){
+				var photoUrl = photo.image_url.replace("3.jpg","5.jpg");
+				return get(photoUrl).then(function(){
+					console.log('caching img ok:',photoUrl);
+				});
+			}));
 		});
 	},Promise.resolve());
+
 	return json;
 }
 
@@ -161,6 +179,4 @@ function responsive(imgel,w,h){//img标签，图片实际尺寸
 		imgel.style.height = '';
 		imgel.style.marginLeft = '';
 	}
-
-	//console.log(rate);
 }
