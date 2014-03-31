@@ -25,6 +25,12 @@ function get(url){
 	});
 }
 
+
+
+var imgFile = "2048.jpg";//5.jpg,3.jpg
+var MINUTE = 60*1000;
+var SECOND = 1000;
+
 function get500pxToken(){
 	if(localStorage.token){
 		return Promise.resolve(localStorage.token);
@@ -37,10 +43,7 @@ function get500pxToken(){
 }
 
 function get500px(token){
-	//'https://api.500px.com/v1/photos?rpp=40&feature=popular&image_size=3&page=1&sort=&include_states=true&authenticity_token=q5jKpSbyZvMLUAfdXszqccPrlthgPc8naWhlwVRz83o=';
-	//'https://api.500px.com/v1/photos?rpp=40&feature=popular&image_size=5&page=1&include_states=true&authenticity_token=q5jKpSbyZvMLUAfdXszqccPrlthgPc8naWhlwVRz83o=';
-	//var url = 'https://api.500px.com/v1/photos?rpp=40&feature=popular&image_size=3&page=1&sort=&include_states=true&authenticity_token='+token;//q5jKpSbyZvMLUAfdXszqccPrlthgPc8naWhlwVRz83o%3D';
-	var baseurl = 'https://api.500px.com/v1/photos?rpp=50&feature=popular&image_size=3&page=1&sort=&include_states=true&authenticity_token=';
+	var baseurl = 'https://api.500px.com/v1/photos?rpp=50&feature=popular&image_size=3&page=1&include_states=true&authenticity_token=';
 
 	return get500pxToken().then(function(token){
 		var url = baseurl + encodeURIComponent(token);
@@ -57,20 +60,23 @@ function cacheToLocale(json){
 }
 
 function get500pxFromCache(){
+	setInterval(function(){
+		get500px().then(cache500pxImg);
+	},10*MINUTE);// 如果它一直开着的话，每隔10分钟更新一次，我真的是为了不开bg page
+
 	if(!localStorage.px500){
 		return get500px().then(cache500pxImg);
 	}else{
-		if(new Date().getTime() - parseInt(localStorage.lastUpdateTime)>1000*60*10){// 10 minutes from last update.
-			setInterval(function(){
+		if(Date.now() - localStorage.lastUpdateTime > 1000*60*10){// 10 minutes from last update.
+			setTimeout(function(){
 				get500px().then(cache500pxImg);
-			},60*1000);//一个新窗口被开了一分钟后才开始从服务器下载并缓存数据，我真的是因为不想开background page才这样的。。。
+			},MINUTE);// 一个新窗口被开了1分钟后才开始从服务器下载并缓存数据，时间太短来不及缓存
 		}
 		return Promise.resolve(localStorage.px500).then(JSON.parse);
 	}
 }
 
 get500pxFromCache()
-//.then(cache500pxImg)
 .then(getRandImgObj)
 .then(setPhotoInfo)
 .then(setImgFullScreen);
@@ -79,7 +85,7 @@ function setPhotoInfo(imgObj){
 	$("#title").text(imgObj.name)[0].href = 'http://500px.com/photo/' + imgObj.id;
 	$("#author").text(imgObj.user.fullname)[0].href = 'http://500px.com/' + imgObj.user.username;
 
-	return imgObj.image_url.replace('3.jpg','5.jpg');
+	return imgObj.image_url.replace('3.jpg',imgFile);
 }
 
 function getRandImgObj(json){
@@ -98,7 +104,7 @@ function cache500pxImg(json){
 			var subArray = json.photos.slice(i*5,(i+1)*5);
 			i++;
 			return Promise.race(subArray.map(function(photo){
-				var photoUrl = photo.image_url.replace("3.jpg","5.jpg");
+				var photoUrl = photo.image_url.replace('3.jpg',imgFile);
 				return get(photoUrl).then(function(){
 					console.log('caching img ok:',photoUrl);
 				});
