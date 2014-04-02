@@ -5,23 +5,25 @@
 	<meta charset="UTF-8">
 	<title>My Favourite Photos</title>
 	<link rel="stylesheet" href="css/common.css">
+	<link rel="stylesheet" href="css/font-awesome.css">
 	<link rel="stylesheet" href="fav-list.css">
 </head>
 
 <body ng-controller="favList">
 	<div class="fav-list">
-	    <div class="col" ng-repeat="i in [4,3,2,1]">
-	        <div ng-show="($index+i)%4==0" ng-repeat="img in imgList|pager:currentPage:pageSize track by $index">
-	            <img src="{{img}}">
-	            <!-- <div>{{$index+1}}</div> -->
-	        </div>
-	    </div>
+		<div class="col" ng-repeat="i in [4,3,2,1]">
+			<div ng-show="($index+i)%4==0" ng-repeat="img in imgList|pager:currentPage:pageSize track by $index">
+				<img src="{{img}}">
+				<div>
+					<a href="#" ng-click="remove(img)"><i class="fa fa-trash-o"></i></a>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="no-more pager">
 		<span ng-click="pageSize=imgList.length">All({{pageSize}})</span>
 		<span ng-repeat="p in getNumber(pageNum) track by $index" ng-class="currentPage==$index+1?'current':''" ng-click="setPage($index+1)">{{$index+1}}</span> 
 	</div>
-	<!-- <div ng-show="loaded" class="no-more">没有更多了…</div> -->
 </body>
 <script src="angular.1.2.15.min.js"></script>
 <script src="fav-list.js"></script>

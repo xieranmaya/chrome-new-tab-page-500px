@@ -33,6 +33,15 @@ var FavListModule = angular.module("fav-list",[])
 		$scope.$digest()
 		console.timeEnd('ng')
 	}
+	$scope.remove = function(img){
+		$scope.imgList = $scope.imgList.filter(function(i){
+			if(i === img){
+				return false
+			}
+			return true
+		});
+		localStorage.favList = JSON.stringify($scope.imgList)
+	}
 })
 
 
