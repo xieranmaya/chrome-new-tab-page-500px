@@ -48,7 +48,10 @@ function get500px(token){
 	return get500pxToken().then(function(token){
 		var url = baseurl + encodeURIComponent(token);
 		console.log(url);
-		return get(url).then(cacheToLocale);//.then(cache500pxImg);
+		return get(url).then(cacheToLocale,function(){
+			delete localStorage.token;// the token is expired...
+			return get500px();
+		});
 	});
 }
 
