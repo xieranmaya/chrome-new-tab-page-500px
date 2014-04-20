@@ -26,7 +26,7 @@ function get(url){
 }
 
 
-
+var baseurl = 'https://api.500px.com/v1/photos?rpp=50&feature=popular&image_size=3&page=1&include_states=true&authenticity_token=';
 var imgFile = "2048.jpg";//5.jpg,3.jpg
 var MINUTE = 60*1000;
 var SECOND = 1000;
@@ -42,9 +42,7 @@ function get500pxToken(){
 	});
 }
 
-function get500px(token){
-	var baseurl = 'https://api.500px.com/v1/photos?rpp=50&feature=popular&image_size=3&page=1&include_states=true&authenticity_token=';
-
+function get500px(){
 	return get500pxToken().then(function(token){
 		var url = baseurl + encodeURIComponent(token);
 		console.log(url);
@@ -65,7 +63,7 @@ function cacheToLocale(json){
 function get500pxFromCache(){
 	setInterval(function(){
 		get500px().then(cache500pxImg);
-	},10*MINUTE);// 如果它一直开着的话，每隔10分钟更新一次，我真的是为了不开bg page
+	},10*MINUTE);// 如果有一个空白标签一直开着的话，每隔10分钟更新一次，我真的是为了不开bg page
 
 	if(!localStorage.px500){
 		return get500px().then(cache500pxImg);
@@ -93,7 +91,6 @@ function setPhotoInfo(imgObj){
 
 function getRandImgObj(json){
 	var rand = parseInt(Math.random()*json.photos.length);
-	console.log(rand,json.photos.length);
 	return json.photos[rand];
 }
 
@@ -123,7 +120,7 @@ function setFavStatus(imgurl){
 	var added = false;
 	if(favList.have(imgurl)){
 		added = true;
-		$("#add-fav").addClass("fav-ed").find('i').addClass("fa-heart").removeClass("fa-heart-o");;
+		$("#add-fav").addClass("fav-ed").find('i').addClass("fa-heart").removeClass("fa-heart-o");
 	}
 
 	$("#add-fav").click(function(){
@@ -154,7 +151,7 @@ function setImgFullScreen(imgurl){
 
 
 		imgel.src = imgurl;
-		imgel.oncontextmenu = function(){return false;};
+		imgel.oncontextmenu = function(){return false;};// 防止复制
 		var w = this.width,
 			h = this.height;
 		responsive(imgel,w,h);
