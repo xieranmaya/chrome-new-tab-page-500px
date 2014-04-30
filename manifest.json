@@ -1,4 +1,4 @@
-{
+﻿{
    "author": "xieranmaya@gmail.com",
    "chrome_url_overrides": {
       "newtab": "new-tab.html"
@@ -12,5 +12,5 @@
    "name": "500px.com新标签页",
    "permissions": [ "http://500px.com/", "http://ppcdn.500px.org/", "<all_urls>" ],
    "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "0.0.8"
+   "version": "0.1.0"
 }
