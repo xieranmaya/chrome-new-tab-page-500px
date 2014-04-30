@@ -1,4 +1,4 @@
-Array.prototype.have = function(item){
+﻿Array.prototype.have = function(item){
 	for(var i = 0,len = this.length; i<len;i++){
 		if(this[i]===item){
 			return true;
@@ -35,7 +35,7 @@ function get500pxToken(){
 	if(localStorage.token){
 		return Promise.resolve(localStorage.token);
 	}
-	return get('http://500px.com/').then(function(pageHtml){
+	return get('http://500px.com/popular').then(function(pageHtml){
 		var token = pageHtml.match(/content="(.*)" name="csrf-token"/)[1];
 		localStorage.token = token;
 		return token;
