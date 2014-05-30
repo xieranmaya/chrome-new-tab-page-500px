@@ -38,7 +38,7 @@ img {
 }
 .col > div > div {
     position: absolute;
-    top:0;
+    bottom:0;
     background-color: black;
     opacity: 0.5;
     color: white;
@@ -46,10 +46,10 @@ img {
     font-size: 36px;
 }
 a{
-    color: #333;
+    color:#999;
 }
 a:hover{
-    color:#999;
+    color:#ddd;
 }
 .no-more {
     width:96%;

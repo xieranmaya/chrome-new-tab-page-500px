@@ -1,7 +1,6 @@
 <!doctype html>
 <html ng-app="fav-list">
 <head>
-	<script src="time-start.js"></script>
 	<meta charset="UTF-8">
 	<title>My Favourite Photos</title>
 	<link rel="stylesheet" href="css/common.css">
@@ -15,7 +14,7 @@
 			<div ng-show="($index+i)%4==0" ng-repeat="img in imgList|pager:currentPage:pageSize track by $index">
 				<img src="{{img}}">
 				<div>
-					<a href="#" ng-click="remove(img)"><i class="fa fa-trash-o"></i></a>
+					<a href="#" ng-click="remove(img)"><i class="fa fa-trash-o"></i></a><a href="{{getImgUrl(img)}}" target="_blank"><i class="fa fa-link"></i></a>
 				</div>
 			</div>
 		</div>
