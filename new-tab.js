@@ -68,7 +68,8 @@ function get500pxFromCache(){
 	if(!localStorage.px500){
 		return get500px().then(cache500pxImg);
 	}else{
-		if(Date.now() - localStorage.lastUpdateTime > 1000*60*10){// 10 minutes from last update.
+		if(Date.now() - localStorage.lastUpdateTime > 10*MINUTE){
+		// 如果已经是10分钟前更新的，就下载并缓存新数据，但并不返回，而是返回当前已经缓存好的数据，因为本次下载的数据还没缓存完
 			setTimeout(function(){
 				get500px().then(cache500pxImg);
 			},MINUTE);// 一个新窗口被开了1分钟后才开始从服务器下载并缓存数据，时间太短来不及缓存
@@ -151,7 +152,7 @@ function setImgFullScreen(imgurl){
 
 
 		imgel.src = imgurl;
-		imgel.oncontextmenu = function(){return false;};// 防止复制
+		imgel.oncontextmenu = function(){return false};// 防止复制
 		var w = this.width,
 			h = this.height;
 		responsive(imgel,w,h);
