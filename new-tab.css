@@ -1,71 +1,115 @@
-*{
-  margin:0;
-  padding:0;
-  border:0;
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
-a{
+a {
   text-decoration: none;
 }
-html,body{
-  height:100%;
-  width:100%;
+html, body {
+  height: 100%;
+  width: 100%;
   overflow: hidden;
   font-family: aktiv-grotesk-std;
-  -webkit-user-select:none;
+  -webkit-user-select: none;
 }
-#img{
+#img {
   min-width: 100%;
   min-height: 100%;
-  border:none;
+  border: none;
   display: inline;
 }
-.footer{
+.footer {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   height: 50px;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   color: white;
   text-align: right;
   z-index: 1;
   line-height: 1.5;
 }
-.footer a{
-  color:#ddd;
+.footer a {
+  color: #ddd;
 }
-.footer a:hover{
-  color:#eee;
+.footer a:hover {
+  color: #eee;
 }
-.footer .operator{
-  float:left;
+.footer .operator {
+  float: left;
   width: -webkit-max-content;
   padding-left: 0;
   height: 50px;
   font-size: 28px;
   line-height: 50px;
 }
-.operator a{
-  padding:10px;
+.operator a {
+  padding: 10px;
   line-height: 30px;
   display: block;
   float: left;
 }
-.operator a#add-fav:hover{
+.operator a#add-fav:hover {
   background-color: #FF4136;
 }
-.operator a#fav-list:hover{
+.operator a#fav-list:hover {
   background-color: #0074D9;
 }
-.operator a#refresh:hover{
+.operator a#refresh:hover {
   background-color: #01FF70;
 }
-.fav-ed i.fa{
+.operator a#select-cate {
+  position: relative;
+  cursor: pointer;
+}
+.operator a#select-cate ul.cates {
+  display: none;
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  font-size: 16px;
+  list-style: none;
+  width: 360px;
+  text-align: left;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 10px;
+}
+.operator a#select-cate ul.cates li {
+  float: left;
+  width: 160px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.operator a#select-cate ul.cates li label {
+  cursor: pointer;
+}
+.operator a#select-cate ul.cates li label input {
+  position: relative;
+  top: 1px;
+  margin-right: 5px;
+}
+.operator a#select-cate ul.cates li:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.operator a#select-cate:hover {
+  background-color: #FF851B;
+}
+.operator a#select-cate:hover ul.cates {
+  display: block;
+}
+.fav-ed i.fa {
   color: red;
   color: #F012BE;
 }
-.footer .photo-info{
+.footer .photo-info {
   padding: 15px;
   font-size: 20px;
   line-height: 1;
+}
+.operator a# .fav-ed i.fa {
+  color: #F012BE;
 }
