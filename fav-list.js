@@ -18,11 +18,11 @@ window.oncontextmenu = function() {
 var FavListModule = angular.module("fav-list", [])
     .controller("favList", function($scope, $window, $location) {
         $scope.imgList = JSON.parse(localStorage.favList).reverse()
-        $scope.pageSize = 30 //每页的数量
+        $scope.pageSize = 40 //每页的数量
         $scope.pageNum = parseInt($scope.imgList.length / $scope.pageSize + 0.5)
         $scope.currentPage = 1 //$location.hash()||$location.hash(1)
         $scope.setPage = function(page) {
-            $scope.pageSize = 30
+            $scope.pageSize = 40
             $scope.currentPage = page
             $location.hash(page)
             $window.scrollTo(0, 0)
