@@ -44,7 +44,7 @@ function get500pxToken(){
 
 function get500px(){
 	return get500pxToken().then(function(token){
-		var url = baseurl + encodeURIComponent(token);
+		var url = baseurl + encodeURIComponent(token) + '&only=' + localStorage.cates;
 		console.log(url);
 		return get(url).then(cacheToLocale,function(){
 			delete localStorage.token;// the token is expired...
@@ -187,3 +187,14 @@ function responsive(imgel,w,h){//img标签，图片实际尺寸
 		imgel.style.marginLeft = '';
 	}
 }
+
+function cateSelect(){
+	$('.cates li input').click(function(){
+		var cates = $('.cates li input:checked').map(function(){
+			return encodeURIComponent(this.value);
+		}).get().join(',');
+
+		localStorage.cates = cates;
+	})
+}
+cateSelect();

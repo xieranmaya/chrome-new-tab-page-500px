@@ -86,6 +86,7 @@ html, body {
 }
 .operator a#select-cate ul.cates li label {
   cursor: pointer;
+  display: block;
 }
 .operator a#select-cate ul.cates li label input {
   position: relative;
