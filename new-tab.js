@@ -196,5 +196,17 @@ function cateSelect(){
 
 		localStorage.cates = cates;
 	})
+
+	//reflect selected cates to ui
+	localStorage.cates.split(',').map(function(cate){
+		$('.cates input[value="'+decodeURIComponent(cate)+'"]').attr('checked','checked');
+	})
 }
 cateSelect();
+
+function clearCacheReload(){
+	$('#clear-cache').click(function(){
+		delete localStorage.px500;
+	});
+}
+clearCacheReload();
