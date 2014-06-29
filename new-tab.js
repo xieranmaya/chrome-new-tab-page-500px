@@ -147,45 +147,26 @@ function setFavStatus(imgurl){
 function setImgFullScreen(imgurl){
 	var image = new Image();
 	image.src = imgurl;
-	setFavStatus(imgurl);
 	image.onload = function(){
-
-
-		imgel.src = imgurl;
-		imgel.oncontextmenu = function(){return false};// 防止复制
-		var w = this.width,
-			h = this.height;
-		responsive(imgel,w,h);
-		window.onresize = function(){
-			responsive(imgel,w,h);
-		};
-
-		$(imgel).css('opacity',0).animate({
+		$('#imgel').css('background-image','url('+imgurl+')');
+		setFavStatus(imgurl);
+		$('#imgel').css('opacity',0).animate({
 			opacity:1
 		},400);
 	};
 }
 
-function responsive(imgel,w,h){//img标签，图片实际尺寸
-	var cw = document.body.clientWidth,
-		ch = document.body.clientHeight,
-		rate;
+$(function(){
+	toggleImgSize();
+	cateSelect();
+	clearCacheReload();
+});
 
-	if(w/h>cw/ch){//图片太宽
-		rate = ch/h;
-		imgel.style.height = ch + "px";
-		imgel.style.marginLeft = -(rate*w-cw)/2+"px";
-
-		imgel.style.width = '';
-		imgel.style.marginTop = '';
-	}else{//图片太高
-		rate = cw/w;
-		imgel.style.width = cw + "px";
-		imgel.style.marginTop = -(rate*h-ch)/2+"px";
-		
-		imgel.style.height = '';
-		imgel.style.marginLeft = '';
-	}
+function toggleImgSize(){
+	$("#imgel").dblclick(function(){
+		var sizeType = window.getComputedStyle(this).backgroundSize;
+		this.style.backgroundSize = sizeType == "cover"?"contain":"cover";
+	});
 }
 
 function cateSelect(){
@@ -202,11 +183,9 @@ function cateSelect(){
 		$('.cates input[value="'+decodeURIComponent(cate)+'"]').attr('checked','checked');
 	})
 }
-cateSelect();
 
 function clearCacheReload(){
 	$('#clear-cache').click(function(){
 		delete localStorage.px500;
 	});
 }
-clearCacheReload();

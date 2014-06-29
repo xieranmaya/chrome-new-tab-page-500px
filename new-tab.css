@@ -13,11 +13,15 @@ html, body {
   font-family: aktiv-grotesk-std;
   -webkit-user-select: none;
 }
-#img {
-  min-width: 100%;
-  min-height: 100%;
-  border: none;
-  display: inline;
+#imgel {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 .footer {
   position: fixed;
