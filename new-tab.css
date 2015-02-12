@@ -67,7 +67,7 @@ html, body {
   background-color: #0074D9;
 }
 .operator a#refresh:hover {
-  background-color: #01FF70;
+  background-color: darkgreen;
 }
 .operator a#clear-cache:hover {
   background-color: #85144B;
