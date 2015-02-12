@@ -11,7 +11,7 @@
 <body ng-controller="favList">
 	<div class="fav-list">
 		<div class="col" ng-repeat="i in [4,3,2,1]">
-			<div ng-show="($index+i)%4==0" ng-repeat="img in imgList|pager:currentPage:pageSize track by $index">
+			<div ng-if="($index+i)%4==0" ng-repeat="img in imgList|pager:currentPage:pageSize track by $index">
 				<img src="{{img}}">
 				<div>
 					<a href="#" ng-click="remove(img)"><i class="fa fa-trash-o"></i></a><a href="{{getImgUrl(img)}}" target="_blank"><i class="fa fa-link"></i></a>
