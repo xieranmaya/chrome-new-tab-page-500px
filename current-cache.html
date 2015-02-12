@@ -1,0 +1,29 @@
+<!doctype html>
+<html ng-app="fav-list">
+<head>
+	<meta charset="UTF-8">
+	<title>My Favourite Photos</title>
+	<link rel="stylesheet" href="css/common.css">
+	<link rel="stylesheet" href="css/font-awesome.css">
+	<link rel="stylesheet" href="fav-list.css">
+</head>
+
+<body ng-controller="favList">
+	<div class="fav-list">
+		<div class="col" ng-repeat="i in [4,3,2,1]">
+			<div ng-if="($index+i)%4==0" ng-repeat="img in imgList|pager:currentPage:pageSize track by $index">
+				<img src="{{img}}">
+				<div>
+					<a href="#" ng-click="remove(img)"><i class="fa fa-trash-o"></i></a><a href="{{getImgUrl(img)}}" target="_blank"><i class="fa fa-link"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="no-more pager">
+		<span ng-click="pageSize=imgList.length">All({{pageSize}})</span>
+		<span ng-repeat="p in getNumber(pageNum) track by $index" ng-class="currentPage==$index+1?'current':''" ng-click="setPage($index+1)">{{$index+1}}</span> 
+	</div>
+</body>
+<script src="angular.1.2.15.min.js"></script>
+<script src="current-cache.js"></script>
+</html>
