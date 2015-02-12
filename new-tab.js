@@ -147,6 +147,7 @@ function setFavStatus(imgurl){
 function setImgFullScreen(imgurl){
 	var image = new Image();
 	image.src = imgurl;
+	image_dragger.src = imgurl;
 	image.onload = function(){
 		$('#imgel').css('background-image','url('+imgurl+')');
 		setFavStatus(imgurl);
