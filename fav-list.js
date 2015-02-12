@@ -13,7 +13,7 @@
 // 	}
 // });
 window.oncontextmenu = function() {
-    return false
+    //return false
 }
 var FavListModule = angular.module("fav-list", [])
     .controller("favList", function($scope, $window, $location) {

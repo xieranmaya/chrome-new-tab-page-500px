@@ -1,5 +1,5 @@
 img{
-  -webkit-user-drag:none;
+  //-webkit-user-drag:none;
 }
 .fa{
   width: 1.2857142857142858em;
