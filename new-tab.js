@@ -26,7 +26,7 @@ function get(url){
 }
 
 
-var baseurl = 'https://api.500px.com/v1/photos?rpp=50&feature=popular&image_size=3&page=1&include_states=true&authenticity_token=';
+var baseurl = 'https://api.500px.com/v1/photos?rpp=50&feature=popular&image_size=5&page=1&include_states=true&authenticity_token=';
 var imgFile = "2048.jpg";//5.jpg,3.jpg
 var MINUTE = 60*1000;
 var SECOND = 1000;
