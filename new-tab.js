@@ -83,14 +83,27 @@ get500pxFromCache()
 .then(setPhotoInfo)
 .then(setImgFullScreen);
 
-function setPhotoInfo(imgObj){
-	$("#title").text(imgObj.name)[0].href = 'http://500px.com/photo/' + imgObj.id;
-	$("#author").text(imgObj.user.fullname)[0].href = 'http://500px.com/' + imgObj.user.username;
+function setPhotoInfo(photo){
+	if(!location.hash){
+		location.hash = photo.id;
+	}
+	$("#title").text(photo.name)[0].href = 'http://500px.com/photo/' + photo.id;
+	$("#author").text(photo.user.fullname)[0].href = 'http://500px.com/' + photo.user.username;
 
-	return imgObj.image_url.replace('3.jpg',imgFile);
+	return photo.image_url.replace('3.jpg',imgFile);
 }
 
 function getRandImgObj(json){
+	var hash = location.hash.substr(1);
+	if(hash != ''){// 如果有hash并且能找到hash里的图片，则返回
+		photoId = parseInt(hash);
+		var hashPhoto = json.photos.filter(function(photo){
+			return photo.id == photoId;
+		});
+		if(hashPhoto.length){
+			return hashPhoto[0];
+		}
+	}
 	var rand = parseInt(Math.random()*json.photos.length);
 	return json.photos[rand];
 }
