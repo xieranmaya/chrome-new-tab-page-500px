@@ -11,8 +11,6 @@ img {
     display: block;
     margin: 0;
     height: 160px;
-    margin-bottom: 20px;
-    margin-right: 20px;
     float: left;
 }
 .fav-list {
@@ -28,13 +26,14 @@ img {
 .col img {
     width: 100%;
     height: auto;
-    margin-bottom: 8.7%;
     display: block;
-    box-shadow: 0px 0px 20px black;
     float: none;
 }
 .col > div {
     position: relative;
+    margin-bottom: 8.7%;
+    overflow: hidden;
+    box-shadow: 0px 0px 20px black;
 }
 .col > div > div {
     position: absolute;
@@ -43,7 +42,7 @@ img {
     opacity: 0.5;
     color: white;
     width: 100%;
-    font-size: 36px;
+    font-size: 2vw;
 }
 a{
     color:#999;
